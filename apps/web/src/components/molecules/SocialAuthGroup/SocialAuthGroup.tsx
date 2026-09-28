@@ -1,13 +1,13 @@
 import {
-  Divider,
   SocialButton,
+  Typography,
   type SocialProvider,
 } from '../../atoms'
 
 export interface SocialAuthGroupProps {
   onSocialLogin?: (provider: SocialProvider) => void
-  /** Rótulo do divisor exibido entre os botões e o formulário. */
-  dividerLabel?: string
+  /** Legenda exibida abaixo dos botões. */
+  caption?: string
   disabled?: boolean
 }
 
@@ -26,12 +26,12 @@ const PROVIDERS: SocialProvider[] = ['github', 'gmail']
 
 export function SocialAuthGroup({
   onSocialLogin,
-  dividerLabel = 'ou entre com',
+  caption = 'Ou entre com sua rede favorita',
   disabled = false,
 }: SocialAuthGroupProps) {
   return (
-    <div className="flex flex-col gap-4">
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+    <div className="flex w-full flex-col items-center gap-3">
+      <div className="flex items-center justify-center gap-6">
         {PROVIDERS.map((provider) => (
           <SocialButton
             key={provider}
@@ -43,7 +43,11 @@ export function SocialAuthGroup({
           />
         ))}
       </div>
-      <Divider label={dividerLabel} />
+      {caption && (
+        <Typography variant="caption" className="text-center">
+          {caption}
+        </Typography>
+      )}
     </div>
   )
 }

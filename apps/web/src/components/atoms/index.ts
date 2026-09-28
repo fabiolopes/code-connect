@@ -1,3 +1,7 @@
+export {
+  BrandMark,
+  type BrandMarkProps,
+} from './BrandMark/BrandMark'
 export { Button, type ButtonProps, type ButtonSize, type ButtonVariant } from './Button/Button'
 export { Checkbox, type CheckboxProps } from './Checkbox/Checkbox'
 export { Divider, type DividerProps } from './Divider/Divider'

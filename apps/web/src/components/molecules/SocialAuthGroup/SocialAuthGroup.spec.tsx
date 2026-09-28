@@ -24,16 +24,22 @@ describe('SocialAuthGroup (Molecule)', () => {
     expect(handleSocialLogin).toHaveBeenCalledTimes(2)
   })
 
-  it('deve exibir o divisor com o rótulo padrão', () => {
+  it('deve exibir a legenda padrão abaixo dos botões', () => {
     render(<SocialAuthGroup />)
 
-    expect(screen.getByText('ou entre com')).toBeInTheDocument()
+    expect(screen.getByText('Ou entre com sua rede favorita')).toBeInTheDocument()
   })
 
-  it('deve permitir customizar o rótulo do divisor', () => {
-    render(<SocialAuthGroup dividerLabel="ou cadastre-se" />)
+  it('deve permitir customizar a legenda', () => {
+    render(<SocialAuthGroup caption="ou conecte-se" />)
 
-    expect(screen.getByText('ou cadastre-se')).toBeInTheDocument()
+    expect(screen.getByText('ou conecte-se')).toBeInTheDocument()
+  })
+
+  it('deve omitir a legenda quando caption for vazia', () => {
+    render(<SocialAuthGroup caption="" />)
+
+    expect(screen.queryByText('Ou entre com sua rede favorita')).not.toBeInTheDocument()
   })
 
   it('deve desabilitar todos os botões quando disabled for verdadeiro', () => {

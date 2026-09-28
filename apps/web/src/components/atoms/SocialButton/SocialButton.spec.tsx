@@ -1,15 +1,16 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { describe, it, expect, vi } from 'vitest'
 import { SocialButton } from './SocialButton'
 
 describe('SocialButton (Atom)', () => {
-  it('deve renderizar o logo e o texto padrão do provedor', () => {
+  it('deve renderizar somente o logo, usando o rótulo acessível', () => {
     render(<SocialButton provider="github" iconSrc="/Github.png" label="Entrar com GitHub" />)
 
     const button = screen.getByRole('button', { name: 'Entrar com GitHub' })
     expect(button).toBeInTheDocument()
-    expect(button).toHaveTextContent('Entrar com GitHub')
     expect(button).toHaveAttribute('data-provider', 'github')
+    expect(button).not.toHaveTextContent('Entrar com GitHub')
   })
 
   it('deve renderizar o logo com alt vazio por ser decorativo', () => {
@@ -23,7 +24,8 @@ describe('SocialButton (Atom)', () => {
     expect(image).toHaveAttribute('aria-hidden', 'true')
   })
 
-  it('deve disparar onClick com o provedor ao ser acionado', () => {
+  it('deve disparar onClick quando acionado pelo usuário', async () => {
+    const user = userEvent.setup()
     const handleClick = vi.fn()
     render(
       <SocialButton
@@ -34,11 +36,12 @@ describe('SocialButton (Atom)', () => {
       />,
     )
 
-    fireEvent.click(screen.getByRole('button', { name: 'Entrar com Gmail' }))
+    await user.click(screen.getByRole('button', { name: 'Entrar com Gmail' }))
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 
-  it('deve desabilitar o botão quando disabled for verdadeiro', () => {
+  it('deve desabilitar o botão quando disabled for verdadeiro', async () => {
+    const user = userEvent.setup()
     const handleClick = vi.fn()
     render(
       <SocialButton
@@ -53,7 +56,7 @@ describe('SocialButton (Atom)', () => {
     const button = screen.getByRole('button', { name: 'Entrar com GitHub' })
     expect(button).toBeDisabled()
 
-    fireEvent.click(button)
+    await user.click(button)
     expect(handleClick).not.toHaveBeenCalled()
   })
 })

@@ -45,7 +45,20 @@ describe('LoginForm (Organism)', () => {
     })
   })
 
-  it('deve propagar o login social com o provedor correto', () => {
+  it('deve renderizar os provedores sociais após o botão de entrada', () => {
+    render(<LoginForm />)
+
+    const submitButton = screen.getByRole('button', { name: 'Entrar' })
+    const githubButton = screen.getByRole('button', { name: 'Entrar com GitHub' })
+
+    // O DOM reflects a ordem visual: os botões sociais vêm depois do "Entrar".
+    expect(
+      submitButton.compareDocumentPosition(githubButton) &
+        Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy()
+  })
+
+  it('deve encaminhar o login social com o provedor correto', () => {
     const handleSocialLogin = vi.fn()
     render(<LoginForm onSocialLogin={handleSocialLogin} />)
 

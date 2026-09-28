@@ -45,8 +45,6 @@ export function LoginForm({
         </Typography>
       </header>
 
-      <SocialAuthGroup onSocialLogin={onSocialLogin} disabled={isLoading} />
-
       {errorMessage && (
         <p
           role="alert"
@@ -104,6 +102,8 @@ export function LoginForm({
       <Button type="submit" size="lg" fullWidth isLoading={isLoading}>
         Entrar
       </Button>
+
+      <SocialAuthGroup onSocialLogin={onSocialLogin} disabled={isLoading} />
 
       <p className="text-center text-sm text-gray-400">
         Não possui uma conta?{' '}

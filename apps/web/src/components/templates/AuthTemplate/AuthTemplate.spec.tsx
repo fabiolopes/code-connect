@@ -24,10 +24,10 @@ describe('AuthTemplate (Template)', () => {
     expect(screen.getByText('Formulário de login')).toBeInTheDocument()
   })
 
-  it('deve exibir o título da aplicação quando informado', () => {
-    render(<AuthTemplate title="Code Connect">conteúdo</AuthTemplate>)
+  it('deve exibir a marca da aplicação com rótulo acessível', () => {
+    render(<AuthTemplate brandTitle="Code Connect">conteúdo</AuthTemplate>)
 
-    expect(screen.getByText('Code Connect')).toBeInTheDocument()
+    expect(screen.getByRole('img', { name: 'Code Connect' })).toBeInTheDocument()
   })
 
   it('deve omitir o banner quando bannerSrc não for informado', () => {
@@ -44,7 +44,10 @@ describe('AuthTemplate (Template)', () => {
     )
 
     expect(container.querySelector('aside')).toBeInTheDocument()
-    expect(screen.getByAltText('Banner de cadastro')).toHaveAttribute('src', '/cadastro.png')
+    expect(screen.getByAltText('Banner de cadastro')).toHaveAttribute(
+      'src',
+      '/cadastro.png',
+    )
     expect(screen.getByText('Formulário de cadastro')).toBeInTheDocument()
   })
 })

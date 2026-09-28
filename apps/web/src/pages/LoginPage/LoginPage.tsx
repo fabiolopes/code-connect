@@ -47,7 +47,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({
 
   return (
     <AuthTemplate
-      title="Code Connect"
+      brandTitle="Code Connect"
       bannerSrc="/banner.png"
       bannerAlt="Code Connect - Garota programando com código verde ao fundo"
     >
